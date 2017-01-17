@@ -67,7 +67,7 @@
   };
 
   ext.block_setSpeed = function(speed){
-    status.speed = float(speed) * MM_to_CM;
+    status.speed = parseFloat(speed) * MM_to_CM;
   };
 
   ext.block_moveDistance = function(distance, direction, callback){
@@ -81,7 +81,7 @@
   ext.block_drive = function(direction){
     var now = new Date();
     var delta = now - status.driveLast;
-    if(delta > 50){
+    if(delta > 10){
       var left = 1
       var right = 1
       if(direction == "Backward"){
@@ -403,7 +403,7 @@
       connection.supported = true;
     }
     if(!status.shutdown && connection.supported){
-      connection.socket = new WebSocket("ws://localhost:9090/ws");
+      connection.socket = new WebSocket("ws://{{ host }}:9090/ws");
 
       connection.socket.onopen = function(event){
         connection.connected.controller = true;
